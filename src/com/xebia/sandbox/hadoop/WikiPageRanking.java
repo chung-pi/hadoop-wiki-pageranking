@@ -33,21 +33,21 @@ public class WikiPageRanking extends Configured implements Tool {
 
     @Override
     public int run(String[] args) throws Exception {
-        boolean isCompleted = runXmlParsing("wiki/in", "wiki/ranking/iter00");
+        boolean isCompleted = runXmlParsing("/wiki/in", "/wiki/ranking/iter00");
         if (!isCompleted) return 1;
 
         String lastResultPath = null;
 
         for (int runs = 0; runs < 5; runs++) {
-            String inPath = "wiki/ranking/iter" + nf.format(runs);
-            lastResultPath = "wiki/ranking/iter" + nf.format(runs + 1);
+            String inPath = "/wiki/ranking/iter" + nf.format(runs);
+            lastResultPath = "/wiki/ranking/iter" + nf.format(runs + 1);
 
             isCompleted = runRankCalculation(inPath, lastResultPath);
 
             if (!isCompleted) return 1;
         }
 
-        isCompleted = runRankOrdering(lastResultPath, "wiki/result");
+        isCompleted = runRankOrdering(lastResultPath, "/wiki/result");
 
         if (!isCompleted) return 1;
         return 0;
